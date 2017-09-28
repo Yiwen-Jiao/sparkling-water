@@ -16,7 +16,6 @@
  */
 package org.apache.spark.h2o.converters
 
-import java.io.File
 import java.sql.Timestamp
 import java.util
 import java.util.UUID
@@ -34,9 +33,9 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Assertions, FunSuite}
 import water.Key
+import water.api.TestUtils
 import water.fvec._
 import water.parser.BufferedString
-import water.support.H2OFrameSupport
 
 /**
   * Testing Conversions between H2OFrame and Spark DataFrame
@@ -48,7 +47,7 @@ class DataFrameConverterTest extends FunSuite with SharedSparkTestContext {
 
   test("Creation of H2ODataFrame") {
     // FIXME: create different shapes of frame
-    val h2oFrame = H2OFrameSupport.uploadFile(new File("examples/smalldata/prostate.csv"))
+    val h2oFrame = new H2OFrame(TestUtils.locate("prostate/prostate.csv"))
 
     val dataFrame = hc.asDataFrame(h2oFrame)
 
